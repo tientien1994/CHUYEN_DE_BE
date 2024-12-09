@@ -1,55 +1,32 @@
-import express from 'express';
-const app = express()
-const port = 31000
+import express from "express";
+const app = express();
+const port = 31000;
 
-app.get('/example/a', (req, res) => {
-    res.send('Hello from A!')
-})
+app.get("/country", (req, res) => {
+    res.send([
+      {
+          name: "Việt Nam",
+          code: "VN"
+      }
+    ]);
+  });
 
-app.get('/example/b',
-    (req, res, next) => {
-        console.log('the response will be sent by the next function ...')
-        next()
-    },
-    (req, res) => {
-        res.send('Hello from B!')
-    }
-)
+app.get("/form", (req, res) => {
+  res.send(`
+    <h2>HTML Forms</h2>
 
-// const cb0 = function (req, res, next) {
-//     console.log('CB0')
-//     next()
-// }
+        <form action="/action_page.php">
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname" value="John"><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname" value="Doe"><br><br>
+        <input type="submit" value="Submit">
+        </form> 
 
-// const cb1 = function (req, res, next) {
-//     console.log('CB1')
-//     next()
-// }
-
-// const cb2 = function (req, res) {
-//     res.send('Hello from C!')
-// }
-
-// app.get('/example/c', [cb0, cb1, cb2])
-
-const cb0 = function (req, res, next) {
-    console.log('CB0')
-    next()
-}
-
-const cb1 = function (req, res, next) {
-    console.log('CB1')
-    next()
-}
-
-app.get('/example/d', [cb0, cb1], (req, res, next) => {
-    console.log('the response will be sent by the next function ...')
-    next()
-}, (req, res) => {
-    res.send('Hello from D!')
-})
-
+    <p>If you click the "Submit" button, the form-data 
+    will be sent to a page called "/action_page.php".</p>`);
+});
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
