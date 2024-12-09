@@ -2,16 +2,19 @@ import express from 'express';
 const app = express()
 const port = 31000
 
-app.get('/ab?cd', (req, res) => { res.send('ab?cd') })
-app.get('/ab+cd', (req, res) => { res.send('ab+cd') })
-app.get('/ab*cd', (req, res) => { res.send('ab*cd') })
-app.get('/ab(cd)?e', (req, res) => { res.send('ab(cd)?e') })
-app.get(/a/, (req, res) => {
-    res.send('/a/')
+app.get('/users/:userId/books/:bookId', (req, res) => {
+    res.send(req.params)
 })
-app.get(/.*fly$/, (req, res) => {
-    res.send('/.*fly$/')
+app.get('/flights/:from-:to', (req, res) => {
+    res.send(req.params)
 })
+app.get('/plantae/:genus.:species', (req, res) => {
+    res.send(req.params)
+})
+app.get('/user/:userId(\d+)', (req, res) => {
+    res.send(req.params)
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
